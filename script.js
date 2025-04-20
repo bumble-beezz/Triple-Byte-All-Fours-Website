@@ -28,6 +28,7 @@ let lowTrump = null;
 let jackHolder = null;
 let gameWinner = null;
 let gameOverFlag = false;
+let removePointTeam = null;
 
 
 
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
       lowTrump,
       jackHolder,
       gameWinner,
+      removePointTeam,
       gameOverFlag
     };
     localStorage.setItem("currentGameState", JSON.stringify(gameState));
@@ -106,7 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
       jackHolder = state.jackHolder || null;
       gameWinner = state.gameWinner || null;
       gameOverFlag = state.gameOverFlag || false;
-      
+      removePointTeam = state.removePointTeam || null;
+
       updateScores();
       
       // Restore button states
@@ -124,6 +127,14 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (gameWinner === "team2") {
         const team2GameBtn = document.getElementById("team2Game");
         if (team2GameBtn) team2GameBtn.classList.add("selected");
+      }
+
+      if (removePointTeam === "team1") {
+        const team1RemoveBtn = document.getElementById("team1RemovePoint");
+        if (team1RemoveBtn) team1RemoveBtn.classList.add("selected");
+      } else if (removePointTeam === "team2") {
+        const team2RemoveBtn = document.getElementById("team2RemovePoint");
+        if (team2RemoveBtn) team2RemoveBtn.classList.add("selected");
       }
     }
   };
@@ -242,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
     jackHolder = null;
     gameWinner = null;
     gameOverFlag = false;
+    removePointTeam = null;
     updateScores();
     
     // Reset selected buttons
@@ -249,7 +261,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const team2JackBtn = document.getElementById("team2Jack");
     const team1GameBtn = document.getElementById("team1Game");
     const team2GameBtn = document.getElementById("team2Game");
-    
+    const team1RemoveBtn = document.getElementById("team1RemovePoint");
+    const team2RemoveBtn = document.getElementById("team2RemovePoint");
+
+    if (team1RemoveBtn) team1RemoveBtn.classList.remove("selected");
+    if (team2RemoveBtn) team2RemoveBtn.classList.remove("selected");
     if (team1JackBtn) team1JackBtn.classList.remove("selected");
     if (team2JackBtn) team2JackBtn.classList.remove("selected");
     if (team1GameBtn) team1GameBtn.classList.remove("selected");
@@ -348,16 +364,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const team1LowBtn = document.getElementById("team1Low");
     const team1JackBtn = document.getElementById("team1Jack");
     const team1GameBtn = document.getElementById("team1Game");
+    const team1RemoveBtn = document.getElementById("team1RemovePoint");
 
     // Team 2 buttons
     const team2HighBtn = document.getElementById("team2High");
     const team2LowBtn = document.getElementById("team2Low");
     const team2JackBtn = document.getElementById("team2Jack");
     const team2GameBtn = document.getElementById("team2Game");
-
+    const team2RemoveBtn = document.getElementById("team2RemovePoint");
+    
     // Award buttons
     const awardJackBtn = document.getElementById("awardJackBtn");
     const awardGameBtn = document.getElementById("awardGameBtn");
+    const removePointBtn = document.getElementById("removePointBtn");
 
     // Add event listeners only if elements exist
     if (team1HighBtn) {
@@ -467,6 +486,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
+
+    if (team1RemoveBtn) {
+      team1RemoveBtn.addEventListener("click", () => {
+        if (!gameOverFlag) {
+          removePointTeam = "team1";
+          team1RemoveBtn.classList.add("selected");
+          const team2RemoveBtn = document.getElementById("team2RemovePoint");
+          if (team2RemoveBtn) team2RemoveBtn.classList.remove("selected");
+          saveGameState();
+        }
+      });
+    }
+    
+    if (team2RemoveBtn) {
+      team2RemoveBtn.addEventListener("click", () => {
+        if (!gameOverFlag) {
+          removePointTeam = "team2";
+          team2RemoveBtn.classList.add("selected");
+          const team1RemoveBtn = document.getElementById("team1RemovePoint");
+          if (team1RemoveBtn) team1RemoveBtn.classList.remove("selected");
+          saveGameState();
+        }
+      });
+    }
+    
+    if (removePointBtn) {
+      removePointBtn.addEventListener("click", () => {
+        if (!gameOverFlag && removePointTeam) {
+          if (removePointTeam === "team1" && team1Score > 0) {
+            team1Score -= 1;
+          } else if (removePointTeam === "team2" && team2Score > 0) {
+            team2Score -= 1;
+          }
+          updateScores();
+          checkForEndGame();
+          saveGameState();
+        }
+      });
+    }
+    
 
     if (awardGameBtn) {
       awardGameBtn.addEventListener("click", () => {
