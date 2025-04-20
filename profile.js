@@ -39,13 +39,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Update team display information
   function updateTeamDisplay() {
-    if (!activeTeam) {
-      currentTeamDisplay.textContent = "No active team";
-      return;
-    }
-    
-    currentTeamDisplay.textContent = `Currently viewing as: ${activeTeam}`;
-    localStorage.setItem("activeTeam", activeTeam);
+  const team1Name = localStorage.getItem("team1Name");
+  const team2Name = localStorage.getItem("team2Name");
+  
+  // If no teams registered
+  if (!team1Name && !team2Name) {
+    currentTeamDisplay.textContent = "Currently viewing as: Guest";
+    if (switchTeamBtn) switchTeamBtn.style.display = "none";
+    return;
+  }
+  
+  // If only one team registered, set it as active
+  if (team1Name && !team2Name) {
+    activeTeam = team1Name;
+  } else if (!team1Name && team2Name) {
+    activeTeam = team2Name;
+  }
+  
+  // Update display
+  currentTeamDisplay.textContent = `Currently viewing as: ${activeTeam}`;
+  localStorage.setItem("activeTeam", activeTeam);
     
     // Update team info displays
     team1Info.textContent = team1Name ? `Team 1: ${team1Name}` : "No Team 1 registered";
