@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Fours Forum</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="gameContainer">
+    <header class="stats-header">
+      <h1>All Fours Community</h1>
+      <div class="card-decoration">♠ ♥ ♣ ♦</div>
+      <nav>
+        <a href="index.html">Game</a>
+        <a href="stats.html">Leaderboard</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <div class="stats-box">
+      <div id="postingAs" style="margin-bottom:20px;padding:10px;background:#f8f8f8;border-radius:8px;">
+        Currently posting as: <strong id="currentPostingTeam"></strong>
+      </div>
+      
+      <div id="postsContainer"></div>
+      
+      <div class="post-form">
+        <h3>Create New Post</h3>
+        <textarea id="newPostContent" placeholder="Share your strategies or ask questions..." 
+                 style="width:100%;padding:10px;margin-bottom:10px;min-height:100px;"></textarea>
+        <button id="createPostBtn" style="width:100%;">Post</button>
+        <div id="postError" style="color:red;margin-top:5px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="forum.js"></script>
+</body>
+</html>

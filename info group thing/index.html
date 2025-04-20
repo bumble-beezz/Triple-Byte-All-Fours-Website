@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <title>All Fours Game</title>
+</head>
+<body>
+  <!-- Persistent Logout Button (hidden by default) -->
+  <button id="logoutBtn">Logout Teams</button>
+  <div id="gameContainer">
+    <header class="stats-header">
+      <h1>All Fours Game</h1>
+      <div class="card-decoration">♠ ♥ ♣ ♦</div>
+      <nav>
+        <a href="forum.html">Forum</a>
+        <a href="stats.html">Leaderboard</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <!-- Team Registration -->
+    <div id="teamRegistration" class="stats-box">
+      <h2 id="registrationTitle">Register Team 1</h2>
+      <form id="teamForm">
+        <div class="input-group">
+          <input type="text" id="team1Name" placeholder="Enter Team 1 Name" required />
+        </div>
+        <div class="input-group">
+          <input type="password" id="team1Passcode" placeholder="Enter Password" required />
+        </div>
+        <div class="input-group">
+          <button type="button" id="registerTeam1Btn">Register Team 1</button>
+        </div>
+      </form>
+      <div id="team1Error" class="error-message" style="display: none;"></div>
+    </div>
+
+    <!-- Register Team 2 -->
+    <div id="team2Registration" class="stats-box" style="display:none;">
+      <h2 id="registrationTitle2">Register Team 2</h2>
+      <form id="team2Form">
+        <div class="input-group">
+          <input type="text" id="team2Name" placeholder="Enter Team 2 Name" required />
+        </div>
+        <div class="input-group">
+          <input type="password" id="team2Passcode" placeholder="Enter Password" required />
+        </div>
+        <div class="input-group">
+          <button type="button" id="registerTeam2Btn">Register Team 2</button>
+        </div>
+      </form>
+      <div id="team2Error" class="error-message" style="display: none;"></div>
+    </div>
+
+    <!-- Game Area -->
+    <div id="gameArea" style="display:none;">
+      <div class="teams-container">
+        <!-- Team 1 Box -->
+        <div class="team-box">
+          <h2 id="team1DisplayName">Team 1</h2>
+          <div class="score-display">
+            <h3>Score: <span id="team1Score">0</span></h3>
+          </div>
+          <div class="score-buttons">
+            <button id="team1High">High</button>
+            <button id="team1Low">Low</button>
+            <button id="team1Jack">Jack</button>
+            <button id="team1Game">Game</button>
+          </div>
+        </div>
+
+        <!-- Team 2 Box -->
+        <div class="team-box">
+          <h2 id="team2DisplayName">Team 2</h2>
+          <div class="score-display">
+            <h3>Score: <span id="team2Score">0</span></h3>
+          </div>
+          <div class="score-buttons">
+            <button id="team2High">High</button>
+            <button id="team2Low">Low</button>
+            <button id="team2Jack">Jack</button>
+            <button id="team2Game">Game</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Award Key Points Section -->
+      <div id="awardKeyContainer">
+        <h3>Award Key Points</h3>
+        <p>Select Jack and Game winners first, then award points</p>
+        <button id="awardJackBtn">Award Jack (1 Point)</button>
+        <button id="awardGameBtn">Award Game (1 Point)</button>
+      </div>
+
+      <!-- Leaderboard Button -->
+      <button id="viewLeaderboardBtn">View Leaderboard</button>
+      <button id="newGameBtn">New Game</button>
+      
+    </div>
+
+    <!-- Game Over Popup -->
+    <div id="gameOverPopup" class="popup" style="display:none;">
+      <div class="popup-content">
+        <h2>Game Over!</h2>
+        <p id="winnerMessage"></p>
+        <div class="popup-buttons">
+          <button id="playAgainBtn">Play Again</button>
+          <button id="viewStatsBtn">View Stats</button>
+          <button id="viewLeaderboardBtnPopup">View Leaderboard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
