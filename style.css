@@ -39,7 +39,14 @@ body {
   color: white;
   font-size: 24px;
   letter-spacing: 10px;
+  animation: pulse 2s infinite;
 }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 
 /* Registration and Game Box Styling */
 .stats-box {
