@@ -26,16 +26,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Get active team (default to team1 if available)
   const getActiveTeam = () => {
-    const activeTeam = localStorage.getItem("activeTeam") || 
-                      localStorage.getItem("team1Name") || 
-                      localStorage.getItem("team2Name");
-    return activeTeam || "Guest";
-  };
+  const team1Name = localStorage.getItem("team1Name");
+  const team2Name = localStorage.getItem("team2Name");
+  
+  // If no teams registered, show as Guest
+  if (!team1Name && !team2Name) {
+    return "Guest";
+  }
+  
+  // If only one team registered, use that team
+  if (team1Name && !team2Name) {
+    return team1Name;
+  }
+  if (!team1Name && team2Name) {
+    return team2Name;
+  }
+  
+  // If both teams registered, use the active team from localStorage
+  return localStorage.getItem("activeTeam") || team1Name || team2Name || "Guest";
+};
 
   // Update team display
   function updateTeamDisplay() {
     const activeTeam = getActiveTeam();
     currentPostingTeam.textContent = activeTeam;
+    currentPostingTeam2.textContent = activeTeam;
     postingAs.textContent = `Currently posting as: ${activeTeam}`;
     
     // Style the team display
